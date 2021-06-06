@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Intefaces;
+namespace App\Http\Interfaces;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;

@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use \App\Http\Interfaces\Crud;
-use \App\Domain\Models\ProductMeta;
+use App\Http\Interfaces\Crud;
+
+use App\Domain\Models\ProductMeta;
 
 class ProductMetaController implements Crud 
 {

@@ -14,6 +14,8 @@
 ## Add Cache layer infront of API, can test with redis locally it is avail would make API calls quicker.
 ## Install swagger docs to better document API.
 ## Build a migration script / or find a third party plugin.
+## Clean up database calls, and exception handling.
+## Add a nicer error logger / use PHP error logger.
 
 #HOW TO RUN
 

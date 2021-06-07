@@ -36,10 +36,10 @@ class ProductController implements Crud
 
     public function create(Request $request, Response $response, array $args) {
         
-
+        
         $return = [
             'data' => '',
-            'status' => 200
+            'status' => 400
         ];
 
         return $return;
@@ -48,7 +48,7 @@ class ProductController implements Crud
     public function update(Request $request, Response $response, array $args) {
         $return = [
             'data' => '',
-            'status' => 200
+            'status' => 400
         ];
 
         return $return;
@@ -57,7 +57,7 @@ class ProductController implements Crud
     public function delete(Request $request, Response $response, array $args) {
         $return = [
             'data' => '',
-            'status' => 200
+            'status' => 400
         ];
 
         return $return;

@@ -12,12 +12,6 @@ $app->get('/', function (Request $request, Response $response, array $args) {
     return $response;
 });
 
-$app->get('/random', function (Request $request, Response $response, array $args) {
-    $response->getBody()->write("<a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Never gonna give you up</a>");
-
-    return $response;
-});
-
 $app->group('/products', function(\Slim\App $app) {
     $app->get('/all', function (Request $request, Response $response, array $args) {
         $productController = new ProductController();

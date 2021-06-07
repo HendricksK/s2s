@@ -23,6 +23,7 @@ class Database
 
                 return $pdo;    
             } catch (PDOException $e) {
+                error_log($e);
                 // TODO: Set up logging
             }
             
@@ -38,6 +39,7 @@ class Database
                 $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
                 return $pdo;
             } catch (PDOException $e) {
+                error_log($e);
                 // TODO: Set up logging
             }
                

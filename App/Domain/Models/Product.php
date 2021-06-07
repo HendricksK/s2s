@@ -10,9 +10,7 @@ class Product
     private $id;
     private $database;
 
-    public function __construct() {
-       
-    }
+    public function __construct() {}
 
     public function setId($id) {
         $this->id = $id;
@@ -23,47 +21,59 @@ class Product
     }
 
     public function get($id) {
-        $database = new Database;
-        $this->database = $database->dbInit();
+        try {
+            $database = new Database;
+            $this->database = $database->dbInit();
+            
+            $productdata = $this->database->prepare('SELECT * FROM product WHERE id = ?');
+            $productdata->execute([$id]);
+            $data = $productdata->fetch();
+
+            $productMeta = new ProductMeta();
+            $attributes = $productMeta->getProductAttributesViaProdId($id);
+
+            $product = (object) [
+                'id'            => $data['id'],
+                'sku'           => $data['sku'],
+                'stock'         => $data['stock'],
+                'attributes'    => $attributes,
+            ];
+
+            return $product;
+        } catch (Exception $e) {
+            error_log($e);
+            return null;
+        }
         
-        $productdata = $this->database->prepare('SELECT * FROM product WHERE id = ?');
-        $productdata->execute([$id]);
-        $data = $productdata->fetch();
-
-        $productMeta = new ProductMeta();
-        $attributes = $productMeta->getProductAttributesViaProdId($id);
-
-        $product = (object) [
-            'id'            => $data['id'],
-            'sku'           => $data['sku'],
-            'stock'         => $data['stock'],
-            'attributes'    => $attributes,
-        ];
-
-        return $product;
     }
 
     public function getAll() {
-        $database = new Database;
-        $this->database = $database->dbInit();
-        
-        $productdata = $this->database->prepare('SELECT * FROM product');
-        $productdata->execute();
-        $data = $productdata->fetchAll();
-        
-        $productMeta = new ProductMeta();
+        try {
+            $database = new Database;
+            $this->database = $database->dbInit();
+            
+            $productdata = $this->database->prepare('SELECT * FROM product');
+            $productdata->execute();
+            $data = $productdata->fetchAll();
+            
+            $productMeta = new ProductMeta();
 
-        for($x = 0; $x < sizeof($data); $x++) {
-            $attributes = $productMeta->getProductAttributesViaProdId($data[$x]['id']);
-            if (!empty($attributes)) {
-                $data[$x]['attributes'] = $attributes;    
+            for($x = 0; $x < sizeof($data); $x++) {
+                $attributes = $productMeta->getProductAttributesViaProdId($data[$x]['id']);
+                if (!empty($attributes)) {
+                    $data[$x]['attributes'] = $attributes;    
+                }
             }
+
+            $product = (object) [
+                'products' => $data,
+            ];
+
+            return $product;
+
+        } catch (Exception $e) {
+            error_log($e);
+            return null;
         }
-
-        $product = (object) [
-            'products' => $data,
-        ];
-
-        return $product;
     }
 }

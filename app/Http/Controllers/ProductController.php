@@ -6,8 +6,9 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 // use App\Http\Controllers\ProductControllerMeta;
-use \App\Http\Interfaces\Crud;
-use \App\Domain\Models\Product;
+use App\Http\Interfaces\Crud;
+
+use App\Domain\Models\Product;
 
 class ProductController implements Crud
 {

@@ -3,8 +3,8 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-use \App\Http\Controllers\ProductController;
-use \App\Http\Controllers\ProductMetaController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductMetaController;
 
 $app->get('/', function (Request $request, Response $response, array $args) {
     $response->getBody()->write("<a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' target='_blank'>Never gonna give you up</a>");

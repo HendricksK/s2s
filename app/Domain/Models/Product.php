@@ -2,8 +2,8 @@
 
 namespace App\Domain\Models;
 
-use \App\Domain\Models\ProductMeta;
-use \App\Domain\Models\Database;
+use App\Domain\Models\ProductMeta;
+use App\Domain\Models\Database;
 
 class Product
 {

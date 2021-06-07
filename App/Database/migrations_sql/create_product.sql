@@ -4,5 +4,6 @@ create table product (
 	date_created timestamp DEFAULT now(),
 	date_updated timestamp,
 	stock int DEFAULT 0,
+	UNIQUE (sku),
 	PRIMARY KEY (id)
 );

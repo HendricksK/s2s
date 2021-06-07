@@ -30,19 +30,19 @@ class Product
             $data = $productdata->fetch();
 
             $productMeta = new ProductMeta();
-            $attributes = $productMeta->getProductAttributesViaProdId($id);
+            $attributes = $productMeta->getProductMetaViaProdId($id);
 
             $product = (object) [
                 'id'            => $data['id'],
                 'sku'           => $data['sku'],
                 'stock'         => $data['stock'],
-                'attributes'    => $attributes,
+                'meta'          => $attributes,
             ];
 
             return $product;
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
             error_log($e);
-            return null;
+            return $e->getMessage();
         }
         
     }
@@ -59,9 +59,9 @@ class Product
             $productMeta = new ProductMeta();
 
             for($x = 0; $x < sizeof($data); $x++) {
-                $attributes = $productMeta->getProductAttributesViaProdId($data[$x]['id']);
+                $attributes = $productMeta->getProductMetaViaProdId($data[$x]['id']);
                 if (!empty($attributes)) {
-                    $data[$x]['attributes'] = $attributes;    
+                    $data[$x]['meta'] = $attributes;    
                 }
             }
 
@@ -71,9 +71,41 @@ class Product
 
             return $product;
 
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
             error_log($e);
-            return null;
+            return $e->getMessage();
+        }
+    }
+
+    public function create(array $product) {
+        try {
+            $database = new Database;
+            $this->database = $database->dbInit();
+            
+            $productdata = $this->database->prepare('INSERT INTO product (sku, stock) VALUES (?, ?)');
+            $productdata->execute([
+                $product['sku'], 
+                $product['stock']
+            ]);
+            
+            $id = $this->database->lastInsertId();
+            $newproduct = $this->get($id);
+            $metacreations = [];
+
+            if (!empty($product['meta'])) {
+                $productMeta = new ProductMeta();
+                foreach ($product['meta'] as $meta) {
+                    $metacreations[] = $productMeta->create($meta);
+                }
+            }
+
+            $newproduct->meta = $metacreations;
+
+            return $product;
+
+        } catch (\PDOException $e) {
+            error_log($e);
+            return $e->getMessage();
         }
     }
 }

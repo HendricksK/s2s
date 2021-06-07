@@ -12,7 +12,7 @@ use App\Domain\Models\Product;
 
 class ProductController implements Crud
 {
-    public function get(Request $request, Response $response, array $args) {
+    public function get(Request $request, array $args) {
         $product = new Product();
         // TODO: Need to add a range value, and a max return
         $return = [
@@ -23,7 +23,7 @@ class ProductController implements Crud
         return $return;
     }
 
-    public function getAll(Request $request, Response $response, array $args) {
+    public function getAll(Request $requests) {
         $product = new Product();
 
         $return = [
@@ -34,9 +34,23 @@ class ProductController implements Crud
         return $return;
     }
 
-    public function create(Request $request, Response $response, array $args) {
+    public function create(Request $request) {
         
+        $newproduct = $request->getParsedBody();
+        $product = new Product();
+        $data = $product->create($newproduct);
+        $return = [
+            'data' => $data,
+            'status' => 200
+        ];
+        if (empty($data)) {
+            $return['status'] = 400;
+        }
         
+        return $return;
+    }
+
+    public function update(Request $request) {
         $return = [
             'data' => '',
             'status' => 400
@@ -45,16 +59,7 @@ class ProductController implements Crud
         return $return;
     }
 
-    public function update(Request $request, Response $response, array $args) {
-        $return = [
-            'data' => '',
-            'status' => 400
-        ];
-
-        return $return;
-    }
-
-    public function delete(Request $request, Response $response, array $args) {
+    public function delete(Request $request) {
         $return = [
             'data' => '',
             'status' => 400

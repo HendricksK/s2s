@@ -35,14 +35,14 @@ class ProductMeta
             ];
 
             return $productMeta;
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
             error_log($e);
-            return null;
+            return $e->getMessage();
         }
         
     }
 
-    public function getProductAttributesViaProdId($id) {
+    public function getProductMetaViaProdId($id) {
         try {
             $database = new Database;
             $this->database = $database->dbInit();
@@ -52,9 +52,9 @@ class ProductMeta
             $productMeta = $metadata->fetchAll();
     
             return $productMeta;
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
             error_log($e);
-            return null;
+            return $e->getMessage();
         }
 
     }
@@ -73,10 +73,31 @@ class ProductMeta
             ];
 
             return $productMeta;
-        } catch (Exception $e) {
+        } catch (\PDOException $e) {
             error_log($e);
-            return null;
+            return $e->getMessage();
         }
         
+    }
+
+    public function create(array $productmeta) {
+        try {
+            $database = new Database;
+            $this->database = $database->dbInit();
+            
+            $productmetadata = $this->database->prepare('INSERT INTO product_meta (`type`, `value`, `product_sku`) VALUES (?, ?, ?)');
+            $productmetadata->execute([
+                $productmeta['type'], 
+                $productmeta['value'],
+                $productmeta['product_sku'],
+            ]);
+
+            $id = $this->database->lastInsertId();
+            return $this->get($id);
+
+        } catch (\PDOException $e) {
+            error_log($e);
+            return $e->getMessage();
+        }
     }
 }

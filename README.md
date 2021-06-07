@@ -3,21 +3,23 @@
 ## running database on heroku, using jaws db, which is based on mariadb
 ## API calls
 ## products
-## /products/all
-## /products/product/{id} 
+## `/products/all`
+## `/products/product/{id}`
 ## meta
-## /meta/all
-## /attributes/{id}
+## `/meta/all`
+## `/attributes/{id}`
+
+## postman post for creation of products and their meta
+## `https://documenter.getpostman.com/view/11707400/TzY6AuaH`
 
 ## Very basic database class for now, just returns PDO would be good to abstract that layer. 
 ## Create POST (on going).
 ## Add Cache layer infront of API, can test with redis locally it is avail would make API calls quicker.
 ## Install swagger docs to better document API.
 ## Build a migration script / or find a third party plugin.
-## Clean up database calls, and exception handling.
-## Add a nicer error logger / use PHP error logger.
+## Build out postman collection.
 
-#HOW TO RUN
+# HOW TO RUN
 
 ## git clone repo
 ## run `composer install`

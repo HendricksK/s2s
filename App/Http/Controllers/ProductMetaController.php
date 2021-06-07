@@ -11,7 +11,7 @@ use App\Domain\Models\ProductMeta;
 
 class ProductMetaController implements Crud 
 {
-    public function get(Request $request, Response $response, array $args) {
+    public function get(Request $request, array $args) {
         $productMeta = new ProductMeta();
         // TODO: Need to add a range value, and a max return
         $return = [
@@ -22,7 +22,7 @@ class ProductMetaController implements Crud
         return $return;
     }
 
-    public function getAll(Request $request, Response $response, array $args) {
+    public function getAll(Request $request) {
         $productMeta = new ProductMeta();
 
         $return = [
@@ -33,9 +33,8 @@ class ProductMetaController implements Crud
         return $return;
     }
 
-    public function create(Request $request, Response $response, array $args) {
+    public function create(Request $request) {
         
-
         $return = [
             'data' => '',
             'status' => 400
@@ -44,7 +43,7 @@ class ProductMetaController implements Crud
         return $return;
     }
 
-    public function update(Request $request, Response $response, array $args) {
+    public function update(Request $request) {
         $return = [
             'data' => '',
             'status' => 400
@@ -53,7 +52,7 @@ class ProductMetaController implements Crud
         return $return;
     }
 
-    public function delete(Request $request, Response $response, array $args) {
+    public function delete(Request $request) {
         $return = [
             'data' => '',
             'status' => 400

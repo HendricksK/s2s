@@ -7,8 +7,8 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 interface Crud  
 {
-    public function get(Request $request, Response $response, array $args);
-    public function create(Request $request, Response $response, array $args);
-    public function update(Request $request, Response $response, array $args);
-    public function delete(Request $request, Response $response, array $args);
+    public function get(Request $request, array $args);
+    public function create(Request $request);
+    public function update(Request $request);
+    public function delete(Request $request);
 } 
